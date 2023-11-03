@@ -1,0 +1,343 @@
+﻿<Window
+    x:Class="FutureAuto.Machine.TranslationSoftware.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FutureAuto.Machine.TranslationSoftware"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="万能翻译软件"
+    Width="1000"
+    Height="600"
+    FontSize="14"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ContextMenu x:Key="ListBoxItemContextMenu">
+            <MenuItem Click="MenuItem_Click" Header="修改">
+                <MenuItem.Icon>
+                    <TextBlock
+                        FontFamily="Resource\Font\#iconfont"
+                        FontSize="18"
+                        Foreground="#f96060"
+                        Text="&#xe8cf;" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="MenuItem_Click" Header="复制">
+                <MenuItem.Icon>
+                    <TextBlock
+                        FontFamily="Resource\Font\#iconfont"
+                        FontSize="17"
+                        Foreground="#53d6cb"
+                        Text="&#xe656;" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <!--  参数选择  -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ComboBox
+                    x:Name="m_from"
+                    Grid.Column="0"
+                    Width="120"
+                    Height="30"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center" />
+
+                <!--  切换按钮  -->
+                <Button
+                    Grid.Column="1"
+                    Background="Transparent"
+                    Click="CutButton_Click"
+                    Cursor="Hand">
+                    <TextBlock
+                        Margin="0,-2,5,0"
+                        FontFamily="Resource\Font\#iconfont"
+                        FontSize="24"
+                        Foreground="#666"
+                        Text="&#xeb0d;" />
+                </Button>
+
+                <ComboBox
+                    x:Name="m_to"
+                    Grid.Column="2"
+                    Width="120"
+                    Height="30"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center" />
+            </Grid>
+
+            <!--  打开/翻译 功能  -->
+            <UniformGrid Grid.Column="1" Columns="2">
+                <Button
+                    Grid.Column="2"
+                    Width="120"
+                    Height="30"
+                    Background="Transparent"
+                    Click="OpenFile_Click"
+                    Cursor="Hand">
+                    <WrapPanel>
+                        <TextBlock
+                            Margin="0,-2,5,0"
+                            FontFamily="Resource\Font\#iconfont"
+                            FontSize="16"
+                            Foreground="#fc5531"
+                            Text="&#xe64d;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="打开文件" />
+                    </WrapPanel>
+                </Button>
+
+                <Button
+                    Grid.Column="3"
+                    Width="120"
+                    Height="30"
+                    Background="Transparent"
+                    Click="Translate_buttonClick">
+                    <WrapPanel>
+                        <TextBlock
+                            Margin="0,-1,5,0"
+                            FontFamily="Resource\Font\#iconfont"
+                            FontSize="24"
+                            Foreground="#00dcb2"
+                            Text="&#xe63d;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="翻译" />
+                    </WrapPanel>
+                </Button>
+            </UniformGrid>
+
+            <!--  选择路径/导出 功能  -->
+            <UniformGrid Grid.Column="2" Columns="2">
+                <Button
+                    Grid.Column="2"
+                    Width="140"
+                    Height="30"
+                    Background="Transparent"
+                    Click="SeleckPath_Click"
+                    Cursor="Hand">
+                    <WrapPanel>
+                        <TextBlock
+                            Margin="0,-2,5,0"
+                            FontFamily="Resource\Font\#iconfont"
+                            FontSize="18"
+                            Foreground="#68bf7b"
+                            Text="&#xe6a3;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="导出路径" />
+                    </WrapPanel>
+                </Button>
+
+                <Button
+                    Grid.Column="3"
+                    Width="120"
+                    Height="30"
+                    Background="Transparent"
+                    Click="ExportXml_Click">
+                    <WrapPanel>
+                        <TextBlock
+                            Margin="0,-1,5,0"
+                            FontFamily="Resource\Font\#iconfont"
+                            FontSize="18"
+                            Foreground="#fc7b24"
+                            Text="&#xe624;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="导出xml" />
+                    </WrapPanel>
+                </Button>
+            </UniformGrid>
+        </Grid>
+
+        <!--  文件夹路径显示  -->
+        <Border
+            Grid.Row="1"
+            Margin="10,5"
+            BorderBrush="#ccc"
+            BorderThickness="1"
+            CornerRadius="5">
+
+            <UniformGrid Rows="2">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Width="100"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Text="导入原文路径:" />
+                    <TextBlock
+                        x:Name="m_SelectXml_TextBlockText"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Width="100"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Text="导出译文路径:" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Text="{Binding TargetText}"
+                        TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </UniformGrid>
+        </Border>
+
+
+        <!--  翻译列表区  -->
+        <Grid Grid.Row="2">
+
+            <!--  提示文本  -->
+            <local:MessageControl
+                x:Name="m_MessageBox"
+                Margin="0,50,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Panel.ZIndex="10" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <!--  准备翻译的文本  -->
+                <ListBox
+                    x:Name="m_DataList"
+                    Margin="10"
+                    ItemsSource="{Binding InitializedDataList}"
+                    ScrollViewer.ScrollChanged="ListBox_ScrollChanged">
+                    <!--  当 ScrollViewer 的滚动状态改变时，调用 ListBox_ScrollChanged 方法  -->
+
+                    <!--  定义 ListBox 的项目模板，即每个项目将如何显示  -->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding ID}" />
+                                <TextBlock Grid.Column="1" Text="{Binding DataValue}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <!--  翻译后的文本  -->
+                <ListBox
+                    x:Name="m_TranslateList"
+                    Grid.Column="1"
+                    Margin="10"
+                    ItemsSource="{Binding TranslateDataList}"
+                    ScrollViewer.ScrollChanged="ListBox_ScrollChanged"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    SelectedIndex="{Binding ElementName=m_DataList, Path=SelectedIndex}">
+
+                    <!--  绑定子集鼠标右键事件和取消选中事件  -->
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="ContextMenu" Value="{StaticResource ListBoxItemContextMenu}" />
+                            <EventSetter Event="Unselected" Handler="ListBoxItem_Unselected" />
+                            <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <!--  定义子集样式模板  -->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding ID}" />
+                                <TextBlock Grid.Column="1" Text="{Binding DataValue, Mode=TwoWay}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsReadOnly}" Value="true">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBox
+                                    Grid.Column="1"
+                                    MinWidth="100"
+                                    Text="{Binding DataValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsReadOnly}" Value="true">
+                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
+
+        <!--  加载进度条  -->
+        <Grid Grid.Row="3">
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=m_progressBar, Path=Value}" Value="0">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=m_progressBar, Path=Value}" Value="100">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Visibility" Value="Visible" />
+                </Style>
+            </Grid.Style>
+            <ProgressBar
+                x:Name="m_progressBar"
+                Height="20"
+                Margin="5"
+                Background="LightGreen" />
+        </Grid>
+
+    </Grid>
+</Window>

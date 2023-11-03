@@ -1,0 +1,34 @@
+﻿<Window
+    x:Class="FutureAuto.Machine.TranslationSoftware.LoadingWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FutureAuto.Machine.TranslationSoftware"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Message"
+    Width="250"
+    Height="150"
+    AllowsTransparency="True"
+    Background="Transparent"
+    RenderTransformOrigin="0.5,0.5"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None"
+    mc:Ignorable="d"
+    d:Background="LightBlue">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <local:Loading HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+        <TextBlock FontSize="15">
+            <Run Text="翻译总数：" />
+            <Run Text="{Binding TotalData}" />
+            <Run Text="已完成：" />
+            <Run Text="{Binding AccomplishData}" />
+        </TextBlock>
+
+        <TextBlock HorizontalAlignment="Center" FontSize="15">
+            <Run Text="预计剩余：" />
+            <Run Text="{Binding SurplusTime}" />
+        </TextBlock>
+    </StackPanel>
+</Window>

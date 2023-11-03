@@ -1,0 +1,196 @@
+﻿<UserControl
+    x:Class="FutureAuto.Machine.TranslationSoftware.Loading"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FutureAuto.Machine.TranslationSoftware"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="100"
+    Height="100"
+    mc:Ignorable="d"
+    d:Background="LightBlue">
+
+    <Grid Background="Transparent" ClipToBounds="True">
+        <Grid Width="100" Height="100">
+
+            <!--  圆圈1  -->
+            <ContentControl RenderTransformOrigin="0.5,0.5">
+                <ContentControl.RenderTransform>
+                    <RotateTransform x:Name="m_Loading" Angle="0" />
+                </ContentControl.RenderTransform>
+                <Ellipse
+                    Width="10"
+                    Height="10"
+                    VerticalAlignment="Bottom"
+                    Fill="#0277bd">
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetName="m_Loading"
+                                        Storyboard.TargetProperty="Angle">
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:2"
+                                            Value="360" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:4"
+                                            Value="720" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+            </ContentControl>
+
+            <!--  圆圈2  -->
+            <ContentControl RenderTransformOrigin="0.5,0.5">
+                <ContentControl.RenderTransform>
+                    <RotateTransform x:Name="m_Loading1" Angle="0" />
+                </ContentControl.RenderTransform>
+                <Ellipse
+                    Width="10"
+                    Height="10"
+                    VerticalAlignment="Bottom"
+                    Fill="#0277bd">
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames
+                                        BeginTime="0:0:0.2"
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetName="m_Loading1"
+                                        Storyboard.TargetProperty="Angle">
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:2"
+                                            Value="360" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:4"
+                                            Value="720" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+            </ContentControl>
+
+            <!--  圆圈3  -->
+            <ContentControl RenderTransformOrigin="0.5,0.5">
+                <ContentControl.RenderTransform>
+                    <RotateTransform x:Name="m_Loading2" Angle="0" />
+                </ContentControl.RenderTransform>
+                <Ellipse
+                    Width="10"
+                    Height="10"
+                    VerticalAlignment="Bottom"
+                    Fill="#0277bd">
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames
+                                        BeginTime="0:0:0.4"
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetName="m_Loading2"
+                                        Storyboard.TargetProperty="Angle">
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:2"
+                                            Value="360" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:4"
+                                            Value="720" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+            </ContentControl>
+
+            <!--  圆圈4  -->
+            <ContentControl RenderTransformOrigin="0.5,0.5">
+                <ContentControl.RenderTransform>
+                    <RotateTransform x:Name="m_Loading3" Angle="0" />
+                </ContentControl.RenderTransform>
+                <Ellipse
+                    Width="10"
+                    Height="10"
+                    VerticalAlignment="Bottom"
+                    Fill="#0277bd">
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames
+                                        BeginTime="0:0:0.6"
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetName="m_Loading3"
+                                        Storyboard.TargetProperty="Angle">
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:2"
+                                            Value="360" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:4"
+                                            Value="720" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+            </ContentControl>
+
+            <!--  圆圈5  -->
+            <ContentControl RenderTransformOrigin="0.5,0.5">
+                <ContentControl.RenderTransform>
+                    <RotateTransform x:Name="m_Loading4" Angle="0" />
+                </ContentControl.RenderTransform>
+                <Ellipse
+                    Width="10"
+                    Height="10"
+                    VerticalAlignment="Bottom"
+                    Fill="#0277bd">
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames
+                                        BeginTime="0:0:0.8"
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetName="m_Loading4"
+                                        Storyboard.TargetProperty="Angle">
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:2"
+                                            Value="360" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:4"
+                                            Value="720" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+            </ContentControl>
+        </Grid>
+    </Grid>
+</UserControl>

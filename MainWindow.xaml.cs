@@ -227,9 +227,6 @@ namespace FutureAuto.Machine.TranslationSoftware
 
                     await Translate(file, from, to);
                 }
-                catch (Exception)
-                {
-                }
                 finally
                 {
                     this.IsEnabled = true;

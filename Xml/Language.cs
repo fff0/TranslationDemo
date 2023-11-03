@@ -33,6 +33,9 @@ namespace FutureAuto.Machine.TranslationSoftware
             }
         }
 
+        /// <summary>
+        /// 文本
+        /// </summary>
         [XmlElement]
         public Languages Languages
         {

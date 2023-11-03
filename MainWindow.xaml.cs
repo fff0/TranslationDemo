@@ -26,6 +26,11 @@ namespace FutureAuto.Machine.TranslationSoftware
             this.DataContext = this;
         }
 
+        #region 页面绑定数据
+
+        /// <summary>
+        /// 等待窗口
+        /// </summary>
         private LoadingWindow loadingWindow;
 
         /// <summary>
@@ -82,6 +87,10 @@ namespace FutureAuto.Machine.TranslationSoftware
             }
         }
 
+        #endregion
+
+        #region 加载方法
+
         /// <summary>
         /// 加载页面方法
         /// </summary>
@@ -96,6 +105,10 @@ namespace FutureAuto.Machine.TranslationSoftware
             m_to.ItemsSource = Enum.GetValues(typeof(EnumDefineType)).GetEnumNameList();
             if (m_from.Items.Count > 0) m_to.SelectedIndex = 1;
         }
+
+        #endregion
+
+        #region 页面按钮事件
 
         /// <summary>
         /// 翻译语言切换按钮点击事件
@@ -131,33 +144,6 @@ namespace FutureAuto.Machine.TranslationSoftware
                 // 复制文本到剪贴板
                 System.Windows.Clipboard.SetText(textToCopy);
             }
-        }
-
-        /// <summary>
-        /// ListBoxItem取消选中事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ListBoxItem_Unselected(object sender, RoutedEventArgs e)
-        {
-            var data = (sender as ListBoxItem).DataContext as ListBoxTextClass;
-            data.IsReadOnly = true;
-        }
-
-        /// <summary>
-        /// ListBoxItem鼠标双击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ListBoxItem_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            var data = (sender as ListBoxItem).DataContext as ListBoxTextClass;
-            data.IsReadOnly = false;
-
-            //// 获取选中的项目
-            //object selectedItem = m_TranslateList.SelectedItem;
-            //// 使用 ScrollIntoView 方法将滚动条滚动到选中的项目
-            //m_TranslateList.ScrollIntoView(selectedItem);
         }
 
         /// <summary>
@@ -239,21 +225,6 @@ namespace FutureAuto.Machine.TranslationSoftware
             }
         }
 
-        /// <summary>
-        /// 订阅主窗口事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainWindow_LocationChanged(object sender, EventArgs e)
-        {
-            // 当主窗口位置发生变化时，将等待弹窗的位置更新为与主窗口一致
-            if (loadingWindow != null && IsLoaded)
-            {
-                loadingWindow.Left = Left + (Width - loadingWindow.Width) / 2;
-                loadingWindow.Top  = Top + (Height - loadingWindow.Height) / 2;
-            }
-        }
-
        /// <summary>
         /// 翻译执行函数
         /// </summary>
@@ -326,142 +297,6 @@ namespace FutureAuto.Machine.TranslationSoftware
             });
         }
 
-        ///// <summary>
-        ///// 翻译执行函数
-        ///// </summary>
-        ///// <param name="language"></param>
-        ///// <returns></returns>
-        //public Task Translate(Language language, EnumDefineType from, EnumDefineType to)
-        //{
-        //    TranslateText = language;
-        //    return Task.Run(() => 
-        //    {
-        //        string text ="";
-        //        // 定义循环的次数
-        //        int number = 0;
-        //        for (int i = 0; i < TranslateText.Languages.I.Count; i+=30)
-        //        {
-        //            text = ""; 
-        //            // 每次循环的数据最大值
-        //            int maxcount = (TranslateText.Languages.I.Count - number * 30)>=30?30:(TranslateText.Languages.I.Count  - number * 30);
-        //            for (int j = i; j < i + maxcount; j++)
-        //            {
-        //                if (!string.IsNullOrEmpty(TranslateText.Languages.I[j].GetLanguage(from)))
-        //                {
-        //                    text += (TranslateText.Languages.I[j].GetLanguage(from) + "/");
-        //                }
-        //            }
-
-        //            // 调用百度翻译APi，得到翻译后的结果
-        //            var bb   = HttpHelp.Get(text.Substring(0, text.Length - 1),from.ToString(),to.ToString());
-        //            // 解析返回的JSON数据
-        //            var data = JsonConvert.DeserializeObject<Result>(bb);
-
-        //            if (data != null && data.trans_result.Count > 0)
-        //            {
-        //                var cc = data.trans_result.dst;
-
-        //                // 翻译后的数据
-        //                var datastr = cc.Split('/');
-
-        //                for (int j = i; j < i + maxcount; j++)
-        //                { 
-        //                    if (TranslateText.Languages.I.Count - 1 >= j)
-        //                    {
-        //                        if (datastr.Length >= j - i + 1)
-        //                        {
-        //                            // 给原数据 添加 翻译后的数据
-        //                            TranslateText.Languages.I[j].SetLanguages(to, datastr[j - i]);
-        //                        }
-        //                    }
-        //                }
-        //            }
-
-        //            // 完成一轮循环后，次数加一
-        //            number += 1;
-        //            // 修改页面进度条表现
-        //            this.Dispatcher.Invoke(() =>
-        //            {
-        //                m_progressBar.Value = double.Parse(((double)number * 30 / (double)TranslateText.Languages.I.Count).ToString("F2")) * 100;
-        //            });
-        //        }
-
-        //        // 给页面列表添加数据
-        //        this.Dispatcher.Invoke(() =>
-        //        {
-        //            for (int i = 0; i < TranslateText.Languages.I.Count; i++)
-        //            {
-        //                InitializedDataList.Add($"{i + 1}:{TranslateText.Languages.I[i].GetLanguage(from)}");
-
-        //                TranslateDataList.Add($"{i + 1}:{TranslateText.Languages.I[i].GetLanguage(to)}");
-        //            }
-        //        });
-        //    });
-        //}
-
-        /// <summary>
-        /// ListBox滚动条事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ListBox_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
-        {
-            // 当选中修改文本时，禁用掉滚动条同步事件，防止修改时滚动条移动到初始位置
-            if ((m_TranslateList.SelectedIndex > 0 && TranslateDataList[m_TranslateList.SelectedIndex].IsReadOnly) || m_TranslateList.SelectedIndex < 0)
-            {
-                if (sender == m_DataList)
-                {
-                    SyncScroll(m_TranslateList, e.VerticalOffset);
-                }
-                else if (sender == m_TranslateList)
-                {
-                    SyncScroll(m_DataList, e.VerticalOffset);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 让两个ListBox同时滚动
-        /// </summary>
-        /// <param name="listBox"></param>
-        /// <param name="verticalOffset"></param>
-        private void SyncScroll(System.Windows.Controls.ListBox listBox, double verticalOffset)
-        {
-            var scrollViewer = FindVisualChild<ScrollViewer>(listBox);
-            if (scrollViewer != null)
-            {
-                scrollViewer.ScrollToVerticalOffset(verticalOffset);
-            }
-        }
-
-        /// <summary>
-        /// 获取滚动的位置
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="depObj"></param>
-        /// <returns></returns>
-        private T FindVisualChild<T>(DependencyObject depObj) where T : DependencyObject
-        {
-            if (depObj == null) return null;
-
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-
-                if (child != null && child is T found)
-                {
-                    return found;
-                }
-                else
-                {
-                    T childItem = FindVisualChild<T>(child);
-                    if (childItem != null)
-                        return childItem;
-                }
-            }
-            return null;
-        }
-
         /// <summary>
         /// 选择导出文件路径按钮点击事件
         /// </summary>
@@ -528,6 +363,116 @@ namespace FutureAuto.Machine.TranslationSoftware
                 this.IsEnabled = true;
             }
         }
+
+        #endregion
+
+        #region 行为事件
+        /// <summary>
+        /// 订阅主窗口事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_LocationChanged(object sender, EventArgs e)
+        {
+            // 当主窗口位置发生变化时，将等待弹窗的位置更新为与主窗口一致
+            if (loadingWindow != null && IsLoaded)
+            {
+                loadingWindow.Left = Left + (Width - loadingWindow.Width) / 2;
+                loadingWindow.Top = Top + (Height - loadingWindow.Height) / 2;
+            }
+        }
+
+        /// <summary>
+        /// ListBoxItem取消选中事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListBoxItem_Unselected(object sender, RoutedEventArgs e)
+        {
+            var data = (sender as ListBoxItem).DataContext as ListBoxTextClass;
+            data.IsReadOnly = true;
+        }
+
+        /// <summary>
+        /// ListBoxItem鼠标双击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListBoxItem_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var data = (sender as ListBoxItem).DataContext as ListBoxTextClass;
+            data.IsReadOnly = false;
+
+            //// 获取选中的项目
+            //object selectedItem = m_TranslateList.SelectedItem;
+            //// 使用 ScrollIntoView 方法将滚动条滚动到选中的项目
+            //m_TranslateList.ScrollIntoView(selectedItem);
+        }
+
+        /// <summary>
+        /// ListBox滚动条事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListBox_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
+        {
+            // 当选中修改文本时，禁用掉滚动条同步事件，防止修改时滚动条移动到初始位置
+            if ((m_TranslateList.SelectedIndex > 0 && TranslateDataList[m_TranslateList.SelectedIndex].IsReadOnly) || m_TranslateList.SelectedIndex < 0)
+            {
+                if (sender == m_DataList)
+                {
+                    SyncScroll(m_TranslateList, e.VerticalOffset);
+                }
+                else if (sender == m_TranslateList)
+                {
+                    SyncScroll(m_DataList, e.VerticalOffset);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 让两个ListBox同时滚动
+        /// </summary>
+        /// <param name="listBox"></param>
+        /// <param name="verticalOffset"></param>
+        private void SyncScroll(System.Windows.Controls.ListBox listBox, double verticalOffset)
+        {
+            var scrollViewer = FindVisualChild<ScrollViewer>(listBox);
+            if (scrollViewer != null)
+            {
+                scrollViewer.ScrollToVerticalOffset(verticalOffset);
+            }
+        }
+
+        /// <summary>
+        /// 获取滚动的位置
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="depObj"></param>
+        /// <returns></returns>
+        private T FindVisualChild<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null) return null;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+
+                if (child != null && child is T found)
+                {
+                    return found;
+                }
+                else
+                {
+                    T childItem = FindVisualChild<T>(child);
+                    if (childItem != null)
+                        return childItem;
+                }
+            }
+            return null;
+        }
+
+        #endregion
 
         /// <summary>
         /// 属性变更通知

@@ -33,9 +33,9 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <summary>
         /// 【异步】延时关闭提示文本
         /// </summary>
-        /// <param name="mestype"></param>
-        /// <param name="text"></param>
-        /// <param name="time"></param>
+        /// <param name="mestype">文本提示类型</param>
+        /// <param name="text">文本提示文字</param>
+        /// <param name="time">显示时间</param>
         public async void SetMessageValueAsync(MessageType mestype, string text,int time = 3000)
         {
 
@@ -56,8 +56,8 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <summary>
         /// 设置提示文本
         /// </summary>
-        /// <param name="mestype"></param>
-        /// <param name="text"></param>
+        /// <param name="mestype">文本提示类型</param>
+        /// <param name="text">文本提示文字</param>
         public void SetMessageValue(MessageType mestype, string text)
         {
             MessageBoxVisibility = Visibility.Visible;

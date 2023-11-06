@@ -225,7 +225,7 @@ namespace FutureAuto.Machine.TranslationSoftware
             }
         }
 
-       /// <summary>
+        /// <summary>
         /// 翻译执行函数
         /// </summary>
         /// <param name="language">XML数据</param>
@@ -235,6 +235,8 @@ namespace FutureAuto.Machine.TranslationSoftware
         public Task Translate(Language language, EnumDefineType from, EnumDefineType to)
         {
             TranslateText = language;
+            // 用于标识是否翻译完成
+            bool IsSuccess = true;
             return Task.Run(() =>
             {
                 string text = "";
@@ -243,19 +245,29 @@ namespace FutureAuto.Machine.TranslationSoftware
                 {
                     if (!string.IsNullOrEmpty(TranslateText.Languages.I[i].GetLanguage(from)))
                     {
-                        text = (TranslateText.Languages.I[i].GetLanguage(from) );
+                        text = (TranslateText.Languages.I[i].GetLanguage(from));
 
                         // 调用百度翻译APi，得到翻译后的结果
-                        var bb = HttpHelp.Get(text, from.ToString(), to.ToString());
-                        // 解析返回的JSON数据
-                        var data = JsonConvert.DeserializeObject<Result>(bb);
+                        var apistring = HttpHelp.Get(text, from.ToString(), to.ToString());
 
-                        if (data != null && data.trans_result.Count > 0)
+                        if (!string.IsNullOrEmpty(apistring))
                         {
-                            var cc = data.trans_result[0].dst;
+                            // 解析返回的JSON数据
+                            var data = JsonConvert.DeserializeObject<Result>(apistring);
 
-                            // 给原数据 添加 翻译后的数据
-                            TranslateText.Languages.I[i].SetLanguages(to, cc);
+                            if (data != null && data.trans_result.Count > 0)
+                            {
+                                var cc = data.trans_result[0].dst;
+
+                                // 给原数据 添加 翻译后的数据
+                                TranslateText.Languages.I[i].SetLanguages(to, cc);
+                            }
+                        }
+                        else
+                        {
+                            // 当接口没有返回数据时，标注失败
+                            IsSuccess = false;
+                            break;
                         }
                     }
                     // 修改页面进度条表现
@@ -270,30 +282,41 @@ namespace FutureAuto.Machine.TranslationSoftware
                     });
                 }
 
-                // 给页面列表添加数据
-                this.Dispatcher.Invoke(() =>
+                if (IsSuccess)
                 {
-                    for (int i = 0; i < TranslateText.Languages.I.Count; i++)
+                    // 给页面列表添加数据
+                    this.Dispatcher.Invoke(() =>
                     {
-                        InitializedDataList.Add(new ListBoxTextClass()
+                        for (int i = 0; i < TranslateText.Languages.I.Count; i++)
                         {
-                            ID = $"{i + 1}:",
-                            DataValue = $"{TranslateText.Languages.I[i].GetLanguage(from)}",
-                            IsReadOnly = true,
-                        });
+                            InitializedDataList.Add(new ListBoxTextClass()
+                            {
+                                ID = $"{i + 1}:",
+                                DataValue = $"{TranslateText.Languages.I[i].GetLanguage(from)}",
+                                IsReadOnly = true,
+                            });
 
-                        TranslateDataList.Add(new ListBoxTextClass() 
-                        { 
-                            ID = $"{i + 1}:", 
-                            DataValue = $"{TranslateText.Languages.I[i].GetLanguage(to)}" ,
-                            IsReadOnly = true,
-                            
-                        });
-                    }
-                    // 存储当前翻译的类型
-                    NowType = to;
-                    m_progressBar.Value = 100;
-                });
+                            TranslateDataList.Add(new ListBoxTextClass()
+                            {
+                                ID = $"{i + 1}:",
+                                DataValue = $"{TranslateText.Languages.I[i].GetLanguage(to)}",
+                                IsReadOnly = true,
+
+                            });
+                        }
+                        // 存储当前翻译的类型
+                        NowType = to;
+                        m_progressBar.Value = 100;
+                    });
+                }
+                else
+                {
+                    this.Dispatcher.Invoke(() => 
+                    {
+                        // 添加页面失败提示文本
+                        m_MessageBox.SetMessageValueAsync(MessageType.Error, "翻译失败，接口返回值为空。\n请检查网络是否连接！");
+                    });
+                }
             });
         }
 

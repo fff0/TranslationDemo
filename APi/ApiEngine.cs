@@ -31,6 +31,9 @@ namespace FutureAuto.Machine.TranslationSoftware
                 case EnumApiType.BaiDu:
                     this.TranslateApi = new BaiDuApi();
                     break;
+                case EnumApiType.YouDao:
+                    this.TranslateApi = new YouDaoApi();
+                    break;
                 default:
                     this.TranslateApi = new BaiDuApi();
                     break;

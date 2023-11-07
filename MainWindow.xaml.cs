@@ -280,8 +280,9 @@ namespace FutureAuto.Machine.TranslationSoftware
 
                         if (!string.IsNullOrEmpty(apistring))
                         {
+                            var translatedata = ApiEngine.TranslateApi.GetResult(apistring);
                             // 给原数据 添加 翻译后的数据
-                            TranslateText.Languages.I[i].SetLanguages(to, ApiEngine.TranslateApi.GetResult(apistring));
+                            TranslateText.Languages.I[i].SetLanguages(to, translatedata);
                         }
                         else
                         {

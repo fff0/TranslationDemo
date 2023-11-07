@@ -30,7 +30,7 @@ namespace FutureAuto.Machine.TranslationSoftware
             try
             {
                 // 百度API限制，高级版1秒可以执行10次，标准版1秒执行1次，添加延时
-                Thread.Sleep(100);
+                Thread.Sleep(150);
 
                 string retString;
                 // 百度翻译API注册ID和密钥
@@ -103,7 +103,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         public string GetResult(string data)
         {
             // 解析返回的JSON数据
-            var datastr = JsonConvert.DeserializeObject<Result>(data);
+            var datastr = JsonConvert.DeserializeObject<BaiDuApiResult>(data);
 
             if (datastr != null && datastr.trans_result.Count > 0)
             {

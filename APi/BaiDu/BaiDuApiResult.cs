@@ -5,7 +5,7 @@ namespace FutureAuto.Machine.TranslationSoftware
     /// <summary>
     /// 翻译接口返回数据
     /// </summary>
-    internal class Result
+    internal class BaiDuApiResult
     {
         /// <summary>
         /// 传入的语言语种

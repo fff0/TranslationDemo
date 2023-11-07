@@ -120,8 +120,13 @@
     <Compile Include="APi\BaiDu\BaiDuApi.cs" />
     <Compile Include="APi\EnumApiType.cs" />
     <Compile Include="APi\IApi.cs" />
+    <Compile Include="APi\YouDao\utils\AuthV3Util.cs" />
+    <Compile Include="APi\YouDao\utils\AuthV4Util.cs" />
+    <Compile Include="APi\YouDao\utils\HttpUtil.cs" />
+    <Compile Include="APi\YouDao\YouDaoApi.cs" />
+    <Compile Include="APi\YouDao\YouDaoApiResult.cs" />
     <Compile Include="EnumDefine.cs" />
-    <Compile Include="APi\BaiDu\Result.cs" />
+    <Compile Include="APi\BaiDu\BaiDuApiResult.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

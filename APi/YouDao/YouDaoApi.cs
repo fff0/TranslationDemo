@@ -25,7 +25,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <returns></returns>
         public string Get(string q, string from, string to)
         {
-            Thread.Sleep(500);
+            Thread.Sleep(600);
             string resStr = "";
             // 您的应用ID
             string APP_KEY = "5d5d73a084993bb7";
@@ -65,10 +65,12 @@ namespace FutureAuto.Machine.TranslationSoftware
             return null;
         }
 
-
-
         private static Dictionary<String, String[]> createRequestParams(string q, string from, string to)
         {
+            if (from == "zh")
+            {
+                from = "zh-CHS";
+            }
             // note: 将下列变量替换为需要请求的参数
             string vocabId = "general";
 

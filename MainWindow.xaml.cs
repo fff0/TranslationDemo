@@ -112,7 +112,10 @@ namespace FutureAuto.Machine.TranslationSoftware
             if(m_from.Items.Count>0) m_from.SelectedIndex = 0;
 
             m_to.ItemsSource = Enum.GetValues(typeof(EnumDefineType)).GetEnumNameList();
-            if (m_from.Items.Count > 0) m_to.SelectedIndex = 1;
+            if (m_to.Items.Count > 0) m_to.SelectedIndex = 1;
+
+            m_ApiComboBox.ItemsSource = Enum.GetValues(typeof(EnumApiType)).GetEnumNameList();
+            if (m_ApiComboBox.Items.Count > 0) m_ApiComboBox.SelectedIndex = 0;
 
             // 初始化API引擎
             ApiEngine.Init(EnumApiType.BaiDu);
@@ -121,6 +124,19 @@ namespace FutureAuto.Machine.TranslationSoftware
         #endregion
 
         #region 页面按钮事件
+
+        /// <summary>
+        /// 翻译API选择事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ApiComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (m_ApiComboBox.SelectedIndex > 0)
+            {
+                ApiEngine.Init((EnumApiType)m_ApiComboBox.SelectedIndex);
+            }
+        }
 
         /// <summary>
         /// 翻译语言切换按钮点击事件

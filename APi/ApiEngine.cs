@@ -32,6 +32,7 @@ namespace FutureAuto.Machine.TranslationSoftware
                     this.TranslateApi = new BaiDuApi();
                     break;
                 default:
+                    this.TranslateApi = new BaiDuApi();
                     break;
             }
         }

@@ -44,12 +44,53 @@
         <!--  参数选择  -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
+            <!--  翻译API选择  -->
+            <ComboBox x:Name="m_ApiComboBox" Width="80" SelectionChanged="ApiComboBox_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock
+                                x:Name="m_ItemText"
+                                Text="{Binding}"
+                                Visibility="Collapsed" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                FontFamily="Resource\Font\#iconfont"
+                                FontSize="24">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=m_ItemText, Path=Text}" Value="百度">
+                                                <Setter Property="Text" Value="&#xe8cb;" />
+                                                <Setter Property="ToolTip" Value="百度翻译Api" />
+                                                <Setter Property="Foreground" Value="#131ddc" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=m_ItemText, Path=Text}" Value="有道">
+                                                <Setter Property="Text" Value="&#xe69f;" />
+                                                <Setter Property="ToolTip" Value="有道翻译Api" />
+                                                <Setter Property="Foreground" Value="#d20b0a" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=m_ItemText, Path=Text}" Value="腾讯">
+                                                <Setter Property="Text" Value="&#xe66e;" />
+                                                <Setter Property="ToolTip" Value="腾讯云翻译Api" />
+                                                <Setter Property="Foreground" Value="#5670fb" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="50" />
@@ -87,7 +128,7 @@
             </Grid>
 
             <!--  打开/翻译 功能  -->
-            <UniformGrid Grid.Column="1" Columns="2">
+            <UniformGrid Grid.Column="2" Columns="2">
                 <Button
                     Grid.Column="2"
                     Width="120"
@@ -131,7 +172,7 @@
             </UniformGrid>
 
             <!--  选择路径/导出 功能  -->
-            <UniformGrid Grid.Column="2" Columns="2">
+            <UniformGrid Grid.Column="3" Columns="2">
                 <Button
                     Grid.Column="2"
                     Width="140"

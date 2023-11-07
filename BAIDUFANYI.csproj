@@ -116,8 +116,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="APi\ApiEngine.cs" />
+    <Compile Include="APi\BaiDu\BaiDuApi.cs" />
+    <Compile Include="APi\EnumApiType.cs" />
+    <Compile Include="APi\IApi.cs" />
     <Compile Include="EnumDefine.cs" />
-    <Compile Include="APi\Result.cs" />
+    <Compile Include="APi\BaiDu\Result.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -126,7 +130,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="APi\HttpHelp.cs" />
     <Compile Include="Popup\LoadingData.cs" />
     <Compile Include="Popup\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>

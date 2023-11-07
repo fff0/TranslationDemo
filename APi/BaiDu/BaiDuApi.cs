@@ -1,17 +1,22 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace FutureAuto.Machine.TranslationSoftware
 {
     /// <summary>
-    /// Http请求帮助类
+    /// 百度翻译API
     /// </summary>
-    static class HttpHelp
+    public class BaiDuApi : IApi
     {
         /// <summary>
         /// 发送Get请求
@@ -20,7 +25,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <param name="from">文本语言</param>
         /// <param name="to">要翻译的语言</param>
         /// <returns></returns>
-        public static string Get(string q, string from = "zh", string to = "vie")
+        public string Get(string q, string from = "zh", string to = "vie")
         {
             try
             {
@@ -36,10 +41,10 @@ namespace FutureAuto.Machine.TranslationSoftware
                 //var key = "j0cfRDkrU5hwUzq6Oruz";
 
                 // 随机数
-                Random rd   = new Random();
+                Random rd = new Random();
                 string salt = rd.Next(100000).ToString();
                 // 密钥组成的字符串
-                string sign = HttpHelp.EncryptString(appid + q + salt + key);
+                string sign = BaiDuApi.EncryptString(appid + q + salt + key);
 
                 string url = "http://api.fanyi.baidu.com/api/trans/vip/translate?";
                 url += "q=" + HttpUtility.UrlEncode(q);
@@ -88,6 +93,23 @@ namespace FutureAuto.Machine.TranslationSoftware
             }
             // 返回加密的字符串
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 解析接口数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public string GetResult(string data)
+        {
+            // 解析返回的JSON数据
+            var datastr = JsonConvert.DeserializeObject<Result>(data);
+
+            if (datastr != null && datastr.trans_result.Count > 0)
+            {
+                return datastr.trans_result[0].dst;
+            }
+            return null;
         }
     }
 }

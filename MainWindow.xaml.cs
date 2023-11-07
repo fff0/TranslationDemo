@@ -34,6 +34,15 @@ namespace FutureAuto.Machine.TranslationSoftware
         private LoadingWindow loadingWindow;
 
         /// <summary>
+        /// 翻译APi
+        /// </summary>
+        private ApiEngine ApiEngine
+        {
+            get;
+            set;
+        } = new ApiEngine();
+
+        /// <summary>
         /// 翻译文件路径
         /// </summary>
         Language file { get; set; }
@@ -104,6 +113,9 @@ namespace FutureAuto.Machine.TranslationSoftware
 
             m_to.ItemsSource = Enum.GetValues(typeof(EnumDefineType)).GetEnumNameList();
             if (m_from.Items.Count > 0) m_to.SelectedIndex = 1;
+
+            // 初始化API引擎
+            ApiEngine.Init(EnumApiType.BaiDu);
         }
 
         #endregion
@@ -248,20 +260,12 @@ namespace FutureAuto.Machine.TranslationSoftware
                         text = (TranslateText.Languages.I[i].GetLanguage(from));
 
                         // 调用百度翻译APi，得到翻译后的结果
-                        var apistring = HttpHelp.Get(text, from.ToString(), to.ToString());
+                        var apistring = ApiEngine.TranslateApi.Get(text, from.ToString(), to.ToString());
 
                         if (!string.IsNullOrEmpty(apistring))
                         {
-                            // 解析返回的JSON数据
-                            var data = JsonConvert.DeserializeObject<Result>(apistring);
-
-                            if (data != null && data.trans_result.Count > 0)
-                            {
-                                var cc = data.trans_result[0].dst;
-
-                                // 给原数据 添加 翻译后的数据
-                                TranslateText.Languages.I[i].SetLanguages(to, cc);
-                            }
+                            // 给原数据 添加 翻译后的数据
+                            TranslateText.Languages.I[i].SetLanguages(to, ApiEngine.TranslateApi.GetResult(apistring));
                         }
                         else
                         {
@@ -301,7 +305,6 @@ namespace FutureAuto.Machine.TranslationSoftware
                                 ID = $"{i + 1}:",
                                 DataValue = $"{TranslateText.Languages.I[i].GetLanguage(to)}",
                                 IsReadOnly = true,
-
                             });
                         }
                         // 存储当前翻译的类型
@@ -313,6 +316,7 @@ namespace FutureAuto.Machine.TranslationSoftware
                 {
                     this.Dispatcher.Invoke(() => 
                     {
+                        m_progressBar.Value = 0;
                         // 添加页面失败提示文本
                         m_MessageBox.SetMessageValueAsync(MessageType.Error, "翻译失败，接口返回值为空。\n请检查网络是否连接！");
                     });

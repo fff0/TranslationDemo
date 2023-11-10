@@ -22,14 +22,14 @@ namespace FutureAuto.Machine.TranslationSoftware
         */
         public static void addAuthParams(string appKey, string appSecret, Dictionary<string, string[]> paramsMap)
         {
-            string salt = System.Guid.NewGuid().ToString();
+            string salt    = System.Guid.NewGuid().ToString();
             string curtime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds() + "";
-            string sign = calculateSign(appKey, appSecret, salt, curtime);
-            paramsMap.Add("appKey", new string[] { appKey });
-            paramsMap.Add("salt", new string[] { salt });
-            paramsMap.Add("curtime", new string[] { curtime });
+            string sign    = calculateSign(appKey, appSecret, salt, curtime);
+            paramsMap.Add("appKey"  , new string[] { appKey });
+            paramsMap.Add("salt"    , new string[] { salt });
+            paramsMap.Add("curtime" , new string[] { curtime });
             paramsMap.Add("signType", new string[] { "v4" });
-            paramsMap.Add("sign", new string[] { sign });
+            paramsMap.Add("sign"    , new string[] { sign });
         }
 
         /*

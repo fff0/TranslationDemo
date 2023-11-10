@@ -145,7 +145,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <param name="e"></param>
         private void CutButton_Click(object sender, RoutedEventArgs e)
         {
-            int index = m_from.SelectedIndex;
+            int index            = m_from.SelectedIndex;
             m_from.SelectedIndex = m_to.SelectedIndex;
             m_to.SelectedIndex   = index;
         }
@@ -312,20 +312,20 @@ namespace FutureAuto.Machine.TranslationSoftware
                         {
                             InitializedDataList.Add(new ListBoxTextClass()
                             {
-                                ID = $"{i + 1}:",
-                                DataValue = $"{TranslateText.Languages.I[i].GetLanguage(from)}",
+                                ID         = $"{i + 1}:",
+                                DataValue  = $"{TranslateText.Languages.I[i].GetLanguage(from)}",
                                 IsReadOnly = true,
                             });
 
                             TranslateDataList.Add(new ListBoxTextClass()
                             {
-                                ID = $"{i + 1}:",
-                                DataValue = $"{TranslateText.Languages.I[i].GetLanguage(to)}",
+                                ID         = $"{i + 1}:",
+                                DataValue  = $"{TranslateText.Languages.I[i].GetLanguage(to)}",
                                 IsReadOnly = true,
                             });
                         }
                         // 存储当前翻译的类型
-                        NowType = to;
+                        NowType = to; 
                         m_progressBar.Value = 100;
                     });
                 }
@@ -335,7 +335,7 @@ namespace FutureAuto.Machine.TranslationSoftware
                     {
                         m_progressBar.Value = 0;
                         // 添加页面失败提示文本
-                        m_MessageBox.SetMessageValueAsync(MessageType.Error, "翻译失败，接口返回值为空。\n请检查网络是否连接！");
+                        m_MessageBox.SetMessageValueAsync(MessageType.Error, "翻译失败，接口返回值为空。\n请检查网络是否连接！"); 
                     });
                 }
             });
@@ -422,7 +422,7 @@ namespace FutureAuto.Machine.TranslationSoftware
             if (loadingWindow != null && IsLoaded)
             {
                 loadingWindow.Left = Left + (Width - loadingWindow.Width) / 2;
-                loadingWindow.Top = Top + (Height - loadingWindow.Height) / 2;
+                loadingWindow.Top  = Top + (Height - loadingWindow.Height) / 2;
             }
         }
 

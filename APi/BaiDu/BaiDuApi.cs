@@ -41,24 +41,24 @@ namespace FutureAuto.Machine.TranslationSoftware
                 //var key = "j0cfRDkrU5hwUzq6Oruz";
 
                 // 随机数
-                Random rd = new Random();
-                string salt = rd.Next(100000).ToString();
+                var rd = new Random();
+                var salt = rd.Next(100000).ToString();
                 // 密钥组成的字符串
-                string sign = BaiDuApi.EncryptString(appid + q + salt + key);
+                var sign = BaiDuApi.EncryptString(appid + q + salt + key);
 
-                string url = "http://api.fanyi.baidu.com/api/trans/vip/translate?";
+                var url = "http://api.fanyi.baidu.com/api/trans/vip/translate?";
                 url += "q=" + HttpUtility.UrlEncode(q);
                 url += "&from=" + from;
                 url += "&to=" + to;
                 url += "&appid=" + appid;
                 url += "&salt=" + salt;
                 url += "&sign=" + sign;
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                var request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
                 request.ContentType = "text/html;charset=UTF-8";
                 request.UserAgent = null;
                 request.Timeout = 10000;
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                var response = (HttpWebResponse)request.GetResponse();
 
                 Stream myResponseStream = response.GetResponseStream();
                 StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));

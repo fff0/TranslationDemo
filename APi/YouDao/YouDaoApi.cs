@@ -75,9 +75,9 @@ namespace FutureAuto.Machine.TranslationSoftware
             string vocabId = "general";
 
             return new Dictionary<string, string[]>() {
-                { "q", new string[]{q}},
-                {"from", new string[]{from}},
-                {"to", new string[]{to}},
+                { "q"     , new string[]{q}},
+                {"from"   , new string[]{from}},
+                {"to"     , new string[]{to}},
                 {"vocabId", new string[]{vocabId}}
             };
         }

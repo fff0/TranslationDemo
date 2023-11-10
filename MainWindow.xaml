@@ -51,7 +51,10 @@
             </Grid.ColumnDefinitions>
 
             <!--  翻译API选择  -->
-            <ComboBox x:Name="m_ApiComboBox" Width="80" SelectionChanged="ApiComboBox_SelectionChanged">
+            <ComboBox
+                x:Name="m_ApiComboBox"
+                Width="80"
+                SelectionChanged="ApiComboBox_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -278,13 +281,13 @@
                     x:Name="m_DataList"
                     Margin="10"
                     ItemsSource="{Binding InitializedDataList}"
-                    ScrollViewer.ScrollChanged="ListBox_ScrollChanged">
+                    ScrollViewer.ScrollChanged="DataListBox_ScrollChanged">
                     <!--  当 ScrollViewer 的滚动状态改变时，调用 ListBox_ScrollChanged 方法  -->
 
                     <!--  定义 ListBox 的项目模板，即每个项目将如何显示  -->
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Height="20">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition />
@@ -302,8 +305,6 @@
                     Grid.Column="1"
                     Margin="10"
                     ItemsSource="{Binding TranslateDataList}"
-                    ScrollViewer.ScrollChanged="ListBox_ScrollChanged"
-                    ScrollViewer.VerticalScrollBarVisibility="Auto"
                     SelectedIndex="{Binding ElementName=m_DataList, Path=SelectedIndex}">
 
                     <!--  绑定子集鼠标右键事件和取消选中事件  -->
@@ -318,7 +319,7 @@
                     <!--  定义子集样式模板  -->
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid Height="20">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition />

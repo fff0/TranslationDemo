@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -458,33 +459,49 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ListBox_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
+        private void DataListBox_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
         {
-            // 当选中修改文本时，禁用掉滚动条同步事件，防止修改时滚动条移动到初始位置
-            if ((m_TranslateList.SelectedIndex > 0 && TranslateDataList[m_TranslateList.SelectedIndex].IsReadOnly) || m_TranslateList.SelectedIndex < 0)
+            if (sender  == m_DataList)
             {
-                if (sender == m_DataList)
+                // 确定事件的源
+                var scrollViewer = FindVisualChild<ScrollViewer>(m_DataList);
+                // 如果源是ListBox1，则同步ListBox2的滚动位置
+                if (scrollViewer != null)
                 {
-                    SyncScroll(m_TranslateList, e.VerticalOffset);
-                }
-                else if (sender == m_TranslateList)
-                {
-                    SyncScroll(m_DataList, e.VerticalOffset);
+                    SetScrollViewerOffset(GetScrollViewer(m_TranslateList), e.VerticalOffset);
                 }
             }
         }
 
         /// <summary>
-        /// 让两个ListBox同时滚动
+        /// 获取ListBox内部的ScrollViewer
         /// </summary>
-        /// <param name="listBox"></param>
-        /// <param name="verticalOffset"></param>
-        private void SyncScroll(System.Windows.Controls.ListBox listBox, double verticalOffset)
+        /// <param name="depObj"></param>
+        /// <returns></returns>
+        private ScrollViewer GetScrollViewer(DependencyObject depObj)
         {
-            var scrollViewer = FindVisualChild<ScrollViewer>(listBox);
+            if (depObj is ScrollViewer) return depObj as ScrollViewer;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(depObj, i);
+
+                var result = GetScrollViewer(child);
+                if (result != null) return result;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 设置ScrollViewer的滚动位置
+        /// </summary>
+        /// <param name="scrollViewer"></param>
+        /// <param name="offset"></param>
+        private void SetScrollViewerOffset(ScrollViewer scrollViewer, double offset)
+        {
             if (scrollViewer != null)
             {
-                scrollViewer.ScrollToVerticalOffset(verticalOffset);
+                scrollViewer.ScrollToVerticalOffset(offset);
             }
         }
 

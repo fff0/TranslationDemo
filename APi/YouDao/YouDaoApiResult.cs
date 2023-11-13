@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FutureAuto.Machine.TranslationSoftware.APi.YouDao
 {
@@ -19,9 +15,9 @@ namespace FutureAuto.Machine.TranslationSoftware.APi.YouDao
         public UrlData mTerminalDict { get; set; } = new UrlData();
         public UrlData dict { get; set; } = new UrlData();
         public UrlData webdict { get; set; } = new UrlData();
-        public BasicData basic {  get; set; } = new BasicData();
+        public BasicData basic { get; set; } = new BasicData();
         public string isWord { get; set; }
-        public string speakUrl {  get; set; }
+        public string speakUrl { get; set; }
 
     }
 

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Markup;
 using System.Xml.Serialization;
 
 namespace FutureAuto.Machine.TranslationSoftware
@@ -18,7 +11,7 @@ namespace FutureAuto.Machine.TranslationSoftware
     public class Language
     {
         [XmlIgnore]
-        static Language  m_Serialize;
+        static Language m_Serialize;
 
         /// <summary>
         /// 读取所选择的配置文件
@@ -41,13 +34,13 @@ namespace FutureAuto.Machine.TranslationSoftware
         {
             get;
             set;
-        }= new Languages();
+        } = new Languages();
 
 
         /// <summary>
         /// 存盘
         /// </summary>
-        public static void SaveXml(Language data,string filterpath)
+        public static void SaveXml(Language data, string filterpath)
         {
             FutureCent.Auto.Common.Config.XmlSerializer.SerializeToXml(data, filterpath);
         }
@@ -76,7 +69,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// </summary>
         /// <param name="type"></param>
         /// <param name="data"></param>
-        public void SetLanguages(EnumDefineType type,string data)
+        public void SetLanguages(EnumDefineType type, string data)
         {
             switch (type)
             {

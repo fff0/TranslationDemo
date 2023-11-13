@@ -281,7 +281,7 @@
                     x:Name="m_DataList"
                     Margin="10"
                     ItemsSource="{Binding InitializedDataList}"
-                    ScrollViewer.ScrollChanged="DataListBox_ScrollChanged">
+                    ScrollViewer.ScrollChanged="ListBox_ScrollChanged">
                     <!--  当 ScrollViewer 的滚动状态改变时，调用 ListBox_ScrollChanged 方法  -->
 
                     <!--  定义 ListBox 的项目模板，即每个项目将如何显示  -->
@@ -305,6 +305,7 @@
                     Grid.Column="1"
                     Margin="10"
                     ItemsSource="{Binding TranslateDataList}"
+                    ScrollViewer.ScrollChanged="ListBox_ScrollChanged"
                     SelectedIndex="{Binding ElementName=m_DataList, Path=SelectedIndex}">
 
                     <!--  绑定子集鼠标右键事件和取消选中事件  -->
@@ -331,9 +332,11 @@
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsReadOnly}" Value="true">
                                                     <Setter Property="Visibility" Value="Visible" />
+                                                    <Setter Property="Panel.ZIndex" Value="9" />
                                                 </DataTrigger>
                                             </Style.Triggers>
-                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Setter Property="Panel.ZIndex" Value="-1" />
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>
@@ -346,9 +349,11 @@
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsReadOnly}" Value="true">
                                                     <Setter Property="Visibility" Value="Hidden" />
+                                                    <Setter Property="Panel.ZIndex" Value="-1" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                             <Setter Property="Visibility" Value="Visible" />
+                                            <Setter Property="Panel.ZIndex" Value="9" />
                                         </Style>
                                     </TextBox.Style>
                                 </TextBox>

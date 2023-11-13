@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace FutureAuto.Machine.TranslationSoftware
 {
@@ -36,17 +22,17 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <param name="mestype">文本提示类型</param>
         /// <param name="text">文本提示文字</param>
         /// <param name="time">显示时间</param>
-        public async void SetMessageValueAsync(MessageType mestype, string text,int time = 3000)
+        public async void SetMessageValueAsync(MessageType mestype, string text, int time = 3000)
         {
 
             MessageBoxVisibility = Visibility.Visible;
             this.MesType = (byte)mestype;
             this.MessageText = text;
 
-            await Task.Run(async() => 
+            await Task.Run(async () =>
             {
                 await Task.Delay(time);
-                this.Dispatcher.Invoke(() => 
+                this.Dispatcher.Invoke(() =>
                 {
                     MessageBoxVisibility = Visibility.Collapsed;
                 });
@@ -89,11 +75,11 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// </summary>
         public byte MesType
         {
-            get 
-            { 
-                return m_MesType; 
+            get
+            {
+                return m_MesType;
             }
-            set 
+            set
             {
                 m_MesType = value;
                 OnPropertyChanged(nameof(MesType));
@@ -107,12 +93,12 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// </summary>
         public string MessageText
         {
-            get 
-            { 
+            get
+            {
                 return m_MessageText;
             }
             set
-            { 
+            {
                 m_MessageText = value;
                 OnPropertyChanged(nameof(MessageText));
             }

@@ -1,7 +1,7 @@
 using System;
-using System.Text;
-using System.Security.Cryptography;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace FutureAuto.Machine.TranslationSoftware
 {
@@ -36,14 +36,14 @@ namespace FutureAuto.Machine.TranslationSoftware
             {
                 q += item;
             }
-            string salt    = System.Guid.NewGuid().ToString();
+            string salt = System.Guid.NewGuid().ToString();
             string curtime = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds() + "";
-            string sign    = calculateSign(appKey, appSecret, q, salt, curtime);
-            paramsMap.Add("appKey"  , new string[] { appKey });
-            paramsMap.Add("salt"    , new string[] { salt });
-            paramsMap.Add("curtime" , new string[] { curtime });
+            string sign = calculateSign(appKey, appSecret, q, salt, curtime);
+            paramsMap.Add("appKey", new string[] { appKey });
+            paramsMap.Add("salt", new string[] { salt });
+            paramsMap.Add("curtime", new string[] { curtime });
             paramsMap.Add("signType", new string[] { "v3" });
-            paramsMap.Add("sign"    , new string[] { sign });
+            paramsMap.Add("sign", new string[] { sign });
         }
 
         /*

@@ -4,10 +4,7 @@ using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace FutureAuto.Machine.TranslationSoftware
 {
@@ -25,7 +22,9 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <returns></returns>
         public string Get(string q, string from, string to)
         {
+            // 有道翻译间隔时间过短时容易造成翻译返回空白文本问题
             Thread.Sleep(600);
+
             string resStr = "";
             // 您的应用ID
             string APP_KEY = "5d5d73a084993bb7";

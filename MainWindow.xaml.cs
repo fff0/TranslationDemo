@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -52,15 +50,15 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// XML数据
         /// </summary>
         Language TranslateText { get; set; } = new Language();
-       
+
         /// <summary>
         /// 原文数据
         /// </summary>
-        public ObservableCollection<ListBoxTextClass> InitializedDataList 
-        { 
-            get; 
+        public ObservableCollection<ListBoxTextClass> InitializedDataList
+        {
+            get;
             set;
-        }=new ObservableCollection<ListBoxTextClass>();
+        } = new ObservableCollection<ListBoxTextClass>();
 
         /// <summary>
         /// 译文数据
@@ -86,9 +84,9 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// </summary>
         public string TargetText
         {
-            get 
+            get
             {
-                return m_TargetText; 
+                return m_TargetText;
             }
             set
             {
@@ -110,7 +108,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         private void ConfigViewPage_Loaded(object sender, RoutedEventArgs e)
         {
             m_from.ItemsSource = Enum.GetValues(typeof(EnumDefineType)).GetEnumNameList();
-            if(m_from.Items.Count>0) m_from.SelectedIndex = 0;
+            if (m_from.Items.Count > 0) m_from.SelectedIndex = 0;
 
             m_to.ItemsSource = Enum.GetValues(typeof(EnumDefineType)).GetEnumNameList();
             if (m_to.Items.Count > 0) m_to.SelectedIndex = 1;
@@ -146,9 +144,9 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <param name="e"></param>
         private void CutButton_Click(object sender, RoutedEventArgs e)
         {
-            int index            = m_from.SelectedIndex;
+            int index = m_from.SelectedIndex;
             m_from.SelectedIndex = m_to.SelectedIndex;
-            m_to.SelectedIndex   = index;
+            m_to.SelectedIndex = index;
         }
 
         /// <summary>
@@ -192,7 +190,7 @@ namespace FutureAuto.Machine.TranslationSoftware
 
                 if (dialog.ShowDialog() == true)
                 {
-                   
+
                     this.m_SelectXml_TextBlockText.Text = dialog.FileName;
                     // 执行翻译
                     file = FutureAuto.Machine.TranslationSoftware.Language.Instance(dialog.FileName);
@@ -238,7 +236,7 @@ namespace FutureAuto.Machine.TranslationSoftware
                     TranslateDataList.Clear();
 
                     var from = (EnumDefineType)m_from.SelectedIndex;
-                    var to   = (EnumDefineType)m_to.SelectedIndex;
+                    var to = (EnumDefineType)m_to.SelectedIndex;
 
                     await Translate(file, from, to);
                 }
@@ -250,7 +248,7 @@ namespace FutureAuto.Machine.TranslationSoftware
             }
             else
             {
-                m_MessageBox.SetMessageValueAsync(MessageType.Hint, "请选择文件后再点击翻译按钮",2000);
+                m_MessageBox.SetMessageValueAsync(MessageType.Hint, "请选择文件后再点击翻译按钮", 2000);
             }
         }
 
@@ -313,30 +311,30 @@ namespace FutureAuto.Machine.TranslationSoftware
                         {
                             InitializedDataList.Add(new ListBoxTextClass()
                             {
-                                ID         = $"{i + 1}:",
-                                DataValue  = $"{TranslateText.Languages.I[i].GetLanguage(from)}",
+                                ID = $"{i + 1}:",
+                                DataValue = $"{TranslateText.Languages.I[i].GetLanguage(from)}",
                                 IsReadOnly = true,
                             });
 
                             TranslateDataList.Add(new ListBoxTextClass()
                             {
-                                ID         = $"{i + 1}:",
-                                DataValue  = $"{TranslateText.Languages.I[i].GetLanguage(to)}",
+                                ID = $"{i + 1}:",
+                                DataValue = $"{TranslateText.Languages.I[i].GetLanguage(to)}",
                                 IsReadOnly = true,
                             });
                         }
                         // 存储当前翻译的类型
-                        NowType = to; 
+                        NowType = to;
                         m_progressBar.Value = 100;
                     });
                 }
                 else
                 {
-                    this.Dispatcher.Invoke(() => 
+                    this.Dispatcher.Invoke(() =>
                     {
                         m_progressBar.Value = 0;
                         // 添加页面失败提示文本
-                        m_MessageBox.SetMessageValueAsync(MessageType.Error, "翻译失败，接口返回值为空。\n请检查网络是否连接！"); 
+                        m_MessageBox.SetMessageValueAsync(MessageType.Error, "翻译失败，接口返回值为空。\n请检查网络是否连接！");
                     });
                 }
             });
@@ -423,7 +421,7 @@ namespace FutureAuto.Machine.TranslationSoftware
             if (loadingWindow != null && IsLoaded)
             {
                 loadingWindow.Left = Left + (Width - loadingWindow.Width) / 2;
-                loadingWindow.Top  = Top + (Height - loadingWindow.Height) / 2;
+                loadingWindow.Top = Top + (Height - loadingWindow.Height) / 2;
             }
         }
 
@@ -447,30 +445,39 @@ namespace FutureAuto.Machine.TranslationSoftware
         {
             var data = (sender as ListBoxItem).DataContext as ListBoxTextClass;
             data.IsReadOnly = false;
-
-            //// 获取选中的项目
-            //object selectedItem = m_TranslateList.SelectedItem;
-            //// 使用 ScrollIntoView 方法将滚动条滚动到选中的项目
-            //m_TranslateList.ScrollIntoView(selectedItem);
         }
 
+        /// <summary>
+        /// 滚动条事件是否正在被触发
+        /// </summary>
+        private bool m_isSynchronizingScroll = false;
         /// <summary>
         /// ListBox滚动条事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DataListBox_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
+        private void ListBox_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
         {
-            if (sender  == m_DataList)
+            if (m_isSynchronizingScroll) return;
+
+            m_isSynchronizingScroll = true;
+
+            if (sender == m_DataList)
             {
                 // 确定事件的源
                 var scrollViewer = FindVisualChild<ScrollViewer>(m_DataList);
                 // 如果源是ListBox1，则同步ListBox2的滚动位置
-                if (scrollViewer != null)
-                {
-                    SetScrollViewerOffset(GetScrollViewer(m_TranslateList), e.VerticalOffset);
-                }
+                SetScrollViewerOffset(GetScrollViewer(m_TranslateList), e.VerticalOffset);
             }
+            else if (sender == m_TranslateList)
+            {
+                // 确定事件的源
+                var scrollViewer = FindVisualChild<ScrollViewer>(m_TranslateList);
+                // 如果源是ListBox2，则同步ListBox1的滚动位置
+                SetScrollViewerOffset(GetScrollViewer(m_DataList), e.VerticalOffset);
+            }
+
+            m_isSynchronizingScroll = false;
         }
 
         /// <summary>
@@ -499,7 +506,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <param name="offset"></param>
         private void SetScrollViewerOffset(ScrollViewer scrollViewer, double offset)
         {
-            if (scrollViewer != null)
+            if (scrollViewer != null && offset != 0)
             {
                 scrollViewer.ScrollToVerticalOffset(offset);
             }
@@ -565,7 +572,7 @@ namespace FutureAuto.Machine.TranslationSoftware
 
         private string m_DataValue = "";
         /// <summary>
-        /// 翻译文本
+        /// 翻译文本  
         /// </summary>
         public string DataValue
         {
@@ -574,7 +581,7 @@ namespace FutureAuto.Machine.TranslationSoftware
                 return m_DataValue;
             }
             set
-           {
+            {
                 m_DataValue = value;
                 OnPropertyChanged(nameof(DataValue));
             }

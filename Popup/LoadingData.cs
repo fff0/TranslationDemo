@@ -69,12 +69,12 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// </summary>
         public TimeSpan SurplusTime
         {
-            get 
+            get
             {
                 return m_Time;
             }
-            set 
-            { 
+            set
+            {
                 m_Time = value;
                 OnPropertyChanged(nameof(SurplusTime));
             }

@@ -19,8 +19,8 @@
                     <RotateTransform x:Name="m_Loading" Angle="0" />
                 </ContentControl.RenderTransform>
                 <Ellipse
-                    Width="10"
-                    Height="10"
+                    Width="8"
+                    Height="8"
                     VerticalAlignment="Bottom"
                     Fill="#0277bd">
                     <Ellipse.Triggers>
@@ -64,8 +64,8 @@
                     <RotateTransform x:Name="m_Loading1" Angle="0" />
                 </ContentControl.RenderTransform>
                 <Ellipse
-                    Width="10"
-                    Height="10"
+                    Width="8"
+                    Height="8"
                     VerticalAlignment="Bottom"
                     Fill="#0277bd">
                     <Ellipse.Triggers>
@@ -110,8 +110,8 @@
                     <RotateTransform x:Name="m_Loading2" Angle="0" />
                 </ContentControl.RenderTransform>
                 <Ellipse
-                    Width="10"
-                    Height="10"
+                    Width="8"
+                    Height="8"
                     VerticalAlignment="Bottom"
                     Fill="#0277bd">
                     <Ellipse.Triggers>
@@ -156,8 +156,8 @@
                     <RotateTransform x:Name="m_Loading3" Angle="0" />
                 </ContentControl.RenderTransform>
                 <Ellipse
-                    Width="10"
-                    Height="10"
+                    Width="8"
+                    Height="8"
                     VerticalAlignment="Bottom"
                     Fill="#0277bd">
                     <Ellipse.Triggers>
@@ -202,8 +202,8 @@
                     <RotateTransform x:Name="m_Loading4" Angle="0" />
                 </ContentControl.RenderTransform>
                 <Ellipse
-                    Width="10"
-                    Height="10"
+                    Width="8"
+                    Height="8"
                     VerticalAlignment="Bottom"
                     Fill="#0277bd">
                     <Ellipse.Triggers>
@@ -234,6 +234,52 @@
                         <Style TargetType="Ellipse">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ElementName=m_Loading4, Path=Angle}" Value="675">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Ellipse.Style>
+                </Ellipse>
+            </ContentControl>
+
+            <!--  圆圈6  -->
+            <ContentControl RenderTransformOrigin="0.5,0.5">
+                <ContentControl.RenderTransform>
+                    <RotateTransform x:Name="m_Loading5" Angle="0" />
+                </ContentControl.RenderTransform>
+                <Ellipse
+                    Width="8"
+                    Height="8"
+                    VerticalAlignment="Bottom"
+                    Fill="#0277bd">
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames
+                                        BeginTime="0:0:1.0"
+                                        RepeatBehavior="Forever"
+                                        Storyboard.TargetName="m_Loading5"
+                                        Storyboard.TargetProperty="Angle">
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:2"
+                                            Value="360" />
+                                        <SplineDoubleKeyFrame
+                                            KeySpline="0.1,0.48,0.89,0.5"
+                                            KeyTime="0:0:4"
+                                            Value="675" />
+                                        <SplineDoubleKeyFrame KeyTime="0:0:6" Value="675" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                    <Ellipse.Style>
+                        <Style TargetType="Ellipse">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=m_Loading5, Path=Angle}" Value="675">
                                     <Setter Property="Visibility" Value="Collapsed" />
                                 </DataTrigger>
                             </Style.Triggers>

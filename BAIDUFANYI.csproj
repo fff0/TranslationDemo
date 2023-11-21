@@ -46,22 +46,6 @@
     <ApplicationIcon>FY.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FutureCent.Auto.AutoControls, Version=2023.4.5.149, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\FutureCent.Auto.AutoControls.dll</HintPath>
-    </Reference>
-    <Reference Include="FutureCent.Auto.Common, Version=2023.4.5.149, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\FutureCent.Auto.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="FutureCent.Auto.ConfigDB, Version=2023.4.5.149, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\FutureCent.Auto.ConfigDB.dll</HintPath>
-    </Reference>
-    <Reference Include="FutureCent.Auto.Log, Version=2023.4.5.149, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\FutureCent.Auto.Log.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x64\Debug\Newtonsoft.Json.dll</HintPath>
@@ -99,6 +83,7 @@
     <Compile Include="APi\YouDao\YouDaoApiResult.cs" />
     <Compile Include="EnumDefine.cs" />
     <Compile Include="APi\BaiDu\BaiDuApiResult.cs" />
+    <Compile Include="Xml\XmlApi.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

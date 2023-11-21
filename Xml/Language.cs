@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using FutureAuto.Machine.TranslationSoftware.Xml;
+
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
@@ -20,7 +22,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         {
             lock (typeof(Language))
             {
-                m_Serialize = FutureCent.Auto.Common.Config.XmlSerializer.DeserializeFromXml<Language>(filterpath) ?? new Language();
+                m_Serialize = XmlApi.Load<Language>(filterpath) ?? new Language();
 
                 return m_Serialize;
             }
@@ -42,7 +44,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// </summary>
         public static void SaveXml(Language data, string filterpath)
         {
-            FutureCent.Auto.Common.Config.XmlSerializer.SerializeToXml(data, filterpath);
+            XmlApi.Save<Language>(filterpath, data);
         }
     }
 

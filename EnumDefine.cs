@@ -22,7 +22,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <summary>
         /// 越南语
         /// </summary>
-        [Description("越南文   ")]
+        [Description("越南文   1213123")]
         vie,
     }
 

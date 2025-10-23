@@ -16,7 +16,7 @@ namespace FutureAuto.Machine.TranslationSoftware
         /// <summary>
         /// 英文
         /// </summary>
-        [Description("英文")]
+        [Description("英文11111111111")]
         en,
 
         /// <summary>
